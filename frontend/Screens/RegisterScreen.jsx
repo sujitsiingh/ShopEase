@@ -8,68 +8,90 @@ import {
     KeyboardAvoidingView,
     TextInput,
     Alert,
-} from "react-native";
-import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+    TouchableOpacity
+} from 'react-native';
+import React, { useState } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 // import { Ionicons } from "@expo/vector-icons";
+import { Color } from './../Utils/Color';
+import { Fonts } from './../Utils/Fonts';
 
 const RegisterScreen = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [secureEntery, setSecureEntery] = useState(true);
     const handleRegister = () => {
         const user = {
             name: name,
             email: email,
             password: password,
         };
-    }
+    };
+
     return (
         <SafeAreaView
-            style={{ flex: 1, backgroundColor: "white", alignItems: "center", marginTop: 50 }}
+            style={{
+                flex: 1,
+                // backgroundColor: 'rgb(231 203 199)',
+                backgroundColor: '#EAF0F1',
+                alignItems: 'center',
+                width: '100%',
+                // overflow: 'hidden'
+            }}
         >
-
-            <View>
-                <View style={{ alignItems: "center" }}>
+            <KeyboardAvoidingView>
+                <View style={{ alignItems: 'center' }}>
                     <Text
                         style={{
-                            fontSize: 20,
-                            fontWeight: "bold",
-                            marginTop: 12,
-                            color: "#041E42",
+                            fontSize: 24,
+                            // fontWeight: 'bold',
+                            fontFamily: Fonts.Bold,
+                            marginTop: '17%',
+                            color: '#041E42',
                         }}
                     >
                         Register to your Account
                     </Text>
                 </View>
 
-                <View style={{ marginTop: 70 }}>
+                <View style={{alignItems: 'center'}}>
+                    <Image
+                        resizeMode="contain"
+                        source={require('./../assets/SELM.png')}
+                        style={{ marginTop: '5%', height: 90 }}
+                    />
+                </View>
+
+                <View style={{ marginTop: 30 }}>
                     <View
                         style={{
-                            flexDirection: "row",
-                            alignItems: "center",
+                            flexDirection: 'row',
+                            alignItems: 'center',
                             gap: 5,
-                            backgroundColor: "#D0D0D0",
+                            // backgroundColor: '#D0D0D0',
                             borderBottomWidth: 2,
+                            borderLeftWidth: 1,
                             paddingVertical: 5,
-                            borderRadius: 5,
+                            borderRadius: 80,
                             marginTop: 30,
-                            marginLeft: 10
+                            // marginLeft: 10,
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                         }}
                     >
-                        {/* <Ionicons
-                            // name="ios-person"
+                        <MaterialIcons
+                            name="drive-file-rename-outline"
                             size={24}
-                            color="gray"
-                            
-                        /> */}
-                        <MaterialIcons name="drive-file-rename-outline" size={24} color="black" style={{ marginLeft: 7 }} />
+                            color="black"
+                            style={{ marginLeft: 7 }}
+                        />
                         <TextInput
                             value={name}
                             onChangeText={(text) => setName(text)}
                             style={{
-                                color: "gray",
+                                color: 'gray',
                                 marginVertical: 10,
                                 paddingLeft: 10,
                                 width: 300,
@@ -78,53 +100,61 @@ const RegisterScreen = () => {
                             placeholder="Enter your name"
                         />
                     </View>
-
+                </View>
+                <View style={{ marginTop: 10 }}>
                     <View
                         style={{
-                            flexDirection: "row",
-                            alignItems: "center",
+                            flexDirection: 'row',
+                            alignItems: 'center',
                             gap: 5,
-                            backgroundColor: "#D0D0D0",
+                            // backgroundColor: '#D0D0D0',
                             borderBottomWidth: 2,
+                            borderLeftWidth: 1,
                             paddingVertical: 5,
-                            borderRadius: 5,
+                            borderRadius: 80,
                             marginTop: 30,
-                            marginLeft: 10
+                            // marginLeft: 10,
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                         }}
                     >
                         <MaterialIcons
                             style={{ marginLeft: 8 }}
                             name="email"
                             size={24}
-                            color="black"
+                            color="{Color.secondary}"
                         />
 
                         <TextInput
                             value={email}
                             onChangeText={(text) => setEmail(text)}
                             style={{
-                                color: "gray",
+                                color: 'gray',
                                 marginVertical: 10,
                                 width: 300,
-                                fontSize: password ? 18 : 18,
+                                fontSize: email ? 18 : 18,
                             }}
                             placeholder="Enter your Email"
+                        // placeholderTextColor={Color.secondary}
                         />
                     </View>
                 </View>
 
-                <View>
+                <View style={{ marginTop: 10 }}>
                     <View
                         style={{
-                            flexDirection: "row",
-                            alignItems: "center",
+                            flexDirection: 'row',
+                            alignItems: 'center',
                             gap: 5,
-                            backgroundColor: "#D0D0D0",
+                            // backgroundColor: 'Color.white',
                             borderBottomWidth: 2,
+                            borderLeftWidth: 1,
                             paddingVertical: 5,
-                            borderRadius: 5,
+                            borderRadius: 80,
                             marginTop: 30,
-                            marginLeft: 10
+                            // marginLeft: 10,
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                         }}
                     >
                         <AntDesign
@@ -137,71 +167,131 @@ const RegisterScreen = () => {
                         <TextInput
                             value={password}
                             onChangeText={(text) => setPassword(text)}
-                            secureTextEntry={true}
+                            secureTextEntry={secureEntery}
                             style={{
-                                color: "gray",
+                                color: 'gray',
                                 marginVertical: 10,
                                 width: 300,
-                                fontSize: email ? 18 : 18,
+                                fontSize: password ? 18 : 18,
                             }}
                             placeholder="Enter your Password"
+                        // placeholderTextColor={Color.secondary}
                         />
+                        <TouchableOpacity
+                            onPress={() => {
+                                setSecureEntery((prev) => !prev);
+                            }}
+                        ></TouchableOpacity>
                     </View>
                 </View>
 
-                <View
-                    style={{
-                        marginTop: 12,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        paddingLeft: 11
-                    }}
-                >
-                    <Text>Keep me logged in</Text>
+                {/* <View
+          style={{
+            marginTop: 12,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingLeft: 11,
+          }}
+        >
+          <Text style={{ fontFamily: Fonts.Light, fontSize: 14 }}>
+            Keep me logged in..
+          </Text>
 
-                    <Text style={{ color: "#007FFF", fontWeight: "500" }}>
-                        Forgot Password
-                    </Text>
-                </View>
+          <TouchableOpacity>
+            <Text
+              style={{
+                color: '#007FFF',
+                fontFamily: Fonts.SemiBold,
+                fontSize: 15,
+              }}
+            >
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
+        </View> */}
 
                 <View style={{ marginTop: 80 }} />
 
-                <Pressable
+                <TouchableOpacity
                     onPress={handleRegister}
                     style={{
-                        width: 200,
-                        backgroundColor: "rgb(49 144 141)",
-                        borderRadius: 6,
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        padding: 15,
+                        width: 300,
+                        backgroundColor: '#1287A5',
+                        borderRadius: 100,
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        padding: 13,
                     }}
                 >
                     <Text
                         style={{
-                            textAlign: "center",
-                            color: "white",
-                            fontSize: 19,
-                            fontWeight: "bold",
+                            textAlign: 'center',
+                            color: 'white',
+                            fontSize: 23,
+                            // fontWeight: 'bold',
+                            fontFamily: Fonts.SemiBold,
                         }}
                     >
                         Register
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
 
-                <Pressable
-                    style={{ marginTop: 15 }}
-                >
-                    <Text style={{ textAlign: "center", color: "gray", fontSize: 16 }}>
-                        Already have an account? Sign In
+                <Text style={styles.continueText}>-- or continue with --</Text>
+                <TouchableOpacity style={styles.googleButtonContainer}>
+                    <Image
+                        source={require('./../assets/google.png')}
+                        style={styles.googleImage}
+                    />
+                    <Text style={styles.googleText}>Google</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ marginTop: 15 }}>
+                    <Text
+                        style={{
+                            textAlign: 'center',
+                            color: '{Color.primary}',
+                            fontSize: 16,
+                        }}
+                    >
+                        Already have an account!{' '}
+                        <Text style={{ color: '#007FFF', fontWeight: '500' }}>SignIn</Text>
                     </Text>
-                </Pressable>
-            </View>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
 
 export default RegisterScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    continueText: {
+        textAlign: "center",
+        marginVertical: 20,
+        fontSize: 18,
+        fontFamily: Fonts.Regular,
+        color: Color.primary,
+    },
+    googleButtonContainer: {
+        flexDirection: "row",
+        borderWidth: 2,
+        borderColor: Color.primary,
+        borderRadius: 100,
+        justifyContent: "center",
+        alignItems: "center",
+        width: 300,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: 10,
+        gap: 10,
+    },
+    googleImage: {
+        height: 20,
+        width: 20,
+    },
+    googleText: {
+        fontSize: 20,
+        fontFamily: Fonts.SemiBold,
+    }
+});
