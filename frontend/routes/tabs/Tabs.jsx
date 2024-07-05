@@ -5,11 +5,14 @@ import { useSelector } from 'react-redux';
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import HomeScreen2 from './../../Screens/user/HomeScreen2';
 import { Color } from './../../Utils/Color';
 import { Fonts } from '../../Utils/Fonts';
 import UserProfileScreen from "../../Screens/profile/UserProfileScrren";
 import CartScreen from '../../Screens/user/CartScreen';
+import ProductScreen from '../../Screens/user/ProductScreen';
+import { ProfileProvider } from '../../states/ProfileContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,24 +63,45 @@ const Tabs = ({ navigation }) => {
       />
 
       <Tab.Screen
-        name="Profile"
-        component={UserProfileScreen}
+        name="Product"
+        component={ProductScreen}
         options={{
-          tabBarLabel: "Profile",
+          tabBarLabel: "Product",
           tabBarLabelStyle: { color: Color.primary_shadow, fontFamily: Fonts.SemiBold, fontSize: 15 },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <Ionicons name="person" size={27} color="#008E97" />
-              // <Image
-              //   source={userIconActive}
-              //   style={StyleSheet.tabIconStyle}
-              // />
+              <MaterialIcons name="store" size={27} color="#008E97" />
             ) : (
-              <Ionicons name="person-outline" size={26} color="black" />
-                // <Image source={userIcon} style={StyleSheet.tabIconStyle} />
+                <MaterialIcons name="store" size={26} color="black" />
             ),
         }}
       />
+      
+        <Tab.Screen
+          name="Profile"
+          component={UserProfileScreen}
+          options={{
+            tabBarLabel: "Profile",
+            tabBarLabelStyle: { color: Color.primary_shadow, fontFamily: Fonts.SemiBold, fontSize: 15 },
+            tabBarIcon: ({ focused }) =>
+              focused ? (
+                <Ionicons name="person" size={27} color="#008E97" />
+                // <Image
+                //   source={userIconActive}
+                //   style={StyleSheet.tabIconStyle}
+                // />
+              ) : (
+                <Ionicons name="person-outline" size={26} color="black" />
+                // <Image source={userIcon} style={StyleSheet.tabIconStyle} />
+              ),
+          }}
+        >
+        {/* {() => (
+          <ProfileProvider>
+            <UserProfileScreen />
+          </ProfileProvider>
+        )} */}
+        </Tab.Screen>
 
       <Tab.Screen
         name="Cart"

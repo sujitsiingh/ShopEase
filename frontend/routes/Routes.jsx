@@ -6,6 +6,10 @@ import Tabs from "./tabs/Tabs";
 import HomeScreen from "../Screens/HomeScreen";
 import HomeScreen2 from "../Screens/user/HomeScreen2";
 import ProductDetailScreen from "../Screens/user/ProductDetailScreen";
+import UserProfileScreen from "../Screens/profile/UserProfileScrren";
+import UserEditProfile from "../components/UserEditProfile/UserEditProfile";
+import MyAccountScreen from "../Screens/user/MyAccount";
+import HelpCenterScreen from "../Screens/user/HelpCenter";
 
 
 const Stack = createNativeStackNavigator();
@@ -23,6 +27,10 @@ const Routes = () => {
                 <Stack.Screen name="tab" component={Tabs} />
                 {/* <Stack.Screen name="Home2" component={HomeScreen2} /> */}
                 <Stack.Screen name="productdetail" component={ProductDetailScreen} />
+                {/* <Stack.Screen name="edit" component={UserEditProfile} /> */}
+                <Stack.Screen name="myaccount" component={MyAccountScreen}/>
+                <Stack.Screen name="helpcenter" component={HelpCenterScreen}/>
+
             </Stack.Navigator>
         </NavigationContainer>
     );
