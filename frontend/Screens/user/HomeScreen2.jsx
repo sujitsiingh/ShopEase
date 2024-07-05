@@ -11,7 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector, useDispatch } from 'react-redux';
 import { Feather } from '@expo/vector-icons';
@@ -20,68 +20,13 @@ import cartIcon from './../../assets/icons/cart_bag.png';
 import shopeaselogo from './../../assets/SELM.png';
 import { Color } from '../../Utils/Color';
 import { Fonts } from './../../Utils/Fonts';
-import CustomIconButton from './../../components/CustomIconButton/CustomIconButton';
 import ProductCard from '../../components/ProductCart/ProductCart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SliderBox } from 'react-native-image-slider-box';
-// import * as jwt_decode from 'jwt-decode';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import { UserType } from '../../states/UserContext';
-const jwt_decode = require('jwt-decode');
-
-const lists = [
-  {
-    id: '0',
-    title: 'Garments',
-    image: require('./../../assets/icons/garments.png'),
-  },
-  {
-    id: '1',
-    title: 'Electornics',
-    image: require('./../../assets/icons/electronics.png'),
-  },
-  {
-    id: '2',
-    title: 'Cosmentics',
-    image: require('./../../assets/icons/cosmetics.png'),
-  },
-  {
-    id: '3',
-    title: 'Groceries',
-    image: require('./../../assets/icons/grocery.png'),
-  },
-  {
-    id: '4',
-    // image: 'https://m.media-amazon.com/images/I/41EcYoIZhIL._AC_SY400_.jpg',
-    image: require('./../../assets/icons/home.png'),
-    title: 'Home',
-  },
-  {
-    id: '5',
-    // image: 'https://m.media-amazon.com/images/G/31/img20/Events/Jup21dealsgrid/blockbuster.jpg',
-    image: require('./../../assets/icons/deal.png'),
-    title: 'Deals',
-  },
-  {
-    id: '6',
-    // image: 'https://m.media-amazon.com/images/G/31/img20/Events/Jup21dealsgrid/All_Icons_Template_1_icons_01.jpg',
-    image: require('./../../assets/icons/mobile.png'),
-    title: 'Mobiles',
-  },
-  {
-    id: '7',
-    // image: 'https://m.media-amazon.com/images/G/31/img20/Events/Jup21dealsgrid/music.jpg',
-    image: require('./../../assets/icons/music.png'),
-    title: 'Music',
-  },
-  {
-    id: '8',
-    // image: 'https://m.media-amazon.com/images/I/51dZ19miAbL._AC_SY350_.jpg',
-    image: require('./../../assets/icons/fashion.png'),
-    title: 'Fashion',
-  },
-];
+import jwt_decode from 'jwt-decode';
 
 const deals = [
   {
@@ -244,21 +189,31 @@ const HomeScreen2 = React.memo(({ navigation }) => {
     };
 
     fetchProduct();
-  },[]);
+  }, []);
 
   // console.log('products', products);
 
   const cart = useSelector((state) => state.cart.cart);
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const token = await AsyncStorage.getItem("authToken");
-  //     const decodedToken = jwt_decode(token);
-  //     const userId = decodedToken.userId;
-  //     setUserId(userId);
-  //   };
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = await AsyncStorage.getItem("@authToken"); // Retrieve the authToken from AsyncStorage
 
-  //   fetchUser();
-  // }, []);
+        if (token) {
+          const decodedToken = jwt_decode(token);
+          const userId = decodedToken.userId;
+          setUserId(userId);
+        } else {
+          // Handle the case when the authToken is not available
+          console.log("authToken is not available");
+        }
+      } catch (error) {
+        console.log('error message:', error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <SafeAreaView
@@ -450,7 +405,7 @@ const HomeScreen2 = React.memo(({ navigation }) => {
             </Pressable>
           ))}
         </View>
-        
+
         {/* Horizontal Line */}
         <Text
           style={{

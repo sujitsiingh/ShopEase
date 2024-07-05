@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   Pressable,
-  TextInput,
   Image,
   Platform,
 } from 'react-native';
@@ -71,76 +70,16 @@ const CartScreen = ({ navigation }) => {
         {/* <Feather name="mic" size={25} color="black" style={{}} /> */}
       </View>
 
-      <ScrollView style={{ flex: 1, marginTop: 20 }}>
-        <View
-          style={{
-            paddingLeft: 15,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '700',
-              fontFamily: Fonts.Regular,
-            }}
-          >
-            Subtotal : ₹
-          </Text>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              fontFamily: Fonts.Medium,
-            }}
-          >
-            {' '}
-            {total}
-          </Text>
-        </View>
-        <Text style={{ marginHorizontal: 15 }}>EMI details Available</Text>
+      <ScrollView style={{ flex: 1 }}>
 
-        <Pressable
-          onPress={() => navigation.navigate('Confirm')}
-          style={{
-            backgroundColor: Color.warning,
-            padding: 12,
-            borderRadius: 100,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 17,
-            marginTop: 20,
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 17,
-              fontWeight: '300',
-              fontFamily: Fonts.Medium,
-            }}
-          >
-            Proceed to Buy ({cart.length}) items
-          </Text>
-        </Pressable>
-
-        <Text
-          style={{
-            height: 1,
-            borderColor: Color.tertiary,
-            borderWidth: 1,
-            marginTop: 9,
-          }}
-        />
-
-        <View style={{ marginHorizontal: 11 }}>
+        <View>
           {cart?.map((item, index) => (
             <View
               style={{
                 backgroundColor: 'white',
-                marginVertical: 5,
+                marginVertical: 1,
                 borderBottomColor: '#F0F0F0',
-                borderWidth: 2,
+                borderWidth: 4,
                 borderLeftWidth: 0,
                 borderTopWidth: 0,
                 borderRightWidth: 0,
@@ -151,12 +90,12 @@ const CartScreen = ({ navigation }) => {
                 style={{
                   marginVertical: 10,
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
+                  gap: 35,
                 }}
               >
-                <View>
+                <View style={{ marginHorizontal: 8 }}>
                   <Image
-                    style={{ width: 150, height: 160, resizeMode: 'contain' }}
+                    style={{ width: 125, height: 140, resizeMode: 'contain' }}
                     source={{ uri: item?.image }}
                   />
                 </View>
@@ -167,17 +106,15 @@ const CartScreen = ({ navigation }) => {
                       width: 120,
                       height: 40,
                       resizeMode: 'contain',
-                      // marginTop: 1,
                     }}
                     source={
-                      // uri: 'https://assets.stickpng.com/thumbs/5f4924cc68ecc70004ae7065.png',
                       require('../../assets/SELM.png')
                     }
                   />
                   <Text
-                    numberOfLines={5}
+                    numberOfLines={3}
                     style={{
-                      width: 150,
+                      width: 190,
                       marginTop: 7,
                       fontSize: 17,
                       fontWeight: '300',
@@ -191,11 +128,17 @@ const CartScreen = ({ navigation }) => {
                   >
                     ₹{item?.price}
                   </Text>
-                  
-                  <Text style={{ color: 'green', marginTop: 10, fontSize: 14, fontWeight: '600' }}>In Stock</Text>
-                  {/* <Text style={{ fontWeight: "500", marginTop: 6 }}>
-                  {item?.rating?.rate} ratings
-                </Text> */}
+
+                  <Text
+                    style={{
+                      color: 'green',
+                      marginTop: 10,
+                      fontSize: 14,
+                      fontWeight: '600',
+                    }}
+                  >
+                    In Stock
+                  </Text>
                 </View>
               </Pressable>
 
@@ -256,7 +199,9 @@ const CartScreen = ({ navigation }) => {
                       paddingVertical: 6,
                     }}
                   >
-                    <Text style={{ fontSize: 17, fontWeight: '600', }}>{item?.quantity}</Text>
+                    <Text style={{ fontSize: 17, fontWeight: '600' }}>
+                      {item?.quantity}
+                    </Text>
                   </Pressable>
 
                   <Pressable
@@ -287,7 +232,7 @@ const CartScreen = ({ navigation }) => {
                     elevation: 5,
                   }}
                 >
-                  <Text style={{color: Color.white}}>Delete</Text>
+                  <Text style={{ color: Color.white }}>Delete</Text>
                 </Pressable>
               </Pressable>
 
@@ -300,38 +245,74 @@ const CartScreen = ({ navigation }) => {
                   paddingLeft: 12,
                 }}
               >
-                <Pressable
-                  style={{
-                    backgroundColor: Color.bg1,
-                    paddingHorizontal: 13,
-                    paddingVertical: 10,
-                    borderRadius: 6,
-                    borderColor: '#C0C0C0',
-                    borderWidth: 0.9,
-                    elevation: 5,
-                  }}
-                  >
-                  <Text style={{ color: Color.white }}>Save For Later</Text>
-                </Pressable>
-
-                <Pressable
-                  style={{
-                    backgroundColor: Color.bg,
-                    paddingHorizontal: 13,
-                    paddingVertical: 10,
-                    borderRadius: 6,
-                    borderColor: '#C0C0C0',
-                    borderWidth: 0.9,
-                    elevation: 5,
-                  }}
-                >
-                  <Text style={{ color: Color.dark }}>See More Like this</Text>
-                </Pressable>
               </Pressable>
             </View>
           ))}
         </View>
       </ScrollView>
+
+      {/* cart price summary */}
+      <View
+        style={{
+          paddingLeft: 15,
+          backgroundColor: Color.info,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderWidth: 1,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderBottomWidth: 0,
+          borderBlockColor: Color.primary,
+        }}
+      >
+        <View>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: '700',
+              fontFamily: Fonts.Regular,
+            }}
+          >
+            Total Price :
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              fontFamily: Fonts.Medium,
+            }}
+          >
+            ₹{' '}
+            {total}
+          </Text>
+        </View>
+
+        <Pressable
+          onPress={() => navigation.navigate('Confirm')}
+          style={{
+            backgroundColor: Color.warning,
+            paddingHorizontal: 18,
+            paddingVertical: 10,
+            borderRadius: 10,
+            // justifyContent: 'flex-end',
+            alignItems: 'center',
+            marginHorizontal: '4%',
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: '300',
+              fontFamily: Fonts.Medium,
+            }}
+          >
+            Place ({cart.length}) Order
+          </Text>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 };
