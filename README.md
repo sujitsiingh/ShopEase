@@ -54,24 +54,24 @@
 
 ##### Product Screen (Grid & List)
 <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-  <img src="ScreenShots/grid.jpg" alt="Based on Category" width="300" style="border: 1px solid black;"/>
-  <img src="ScreenShots/list.jpg" alt="Based on Category" width="300" style="border: 1px solid black;"/>
+  <img src="ScreenShots/grid.jpg" alt="Grid view" width="300" style="border: 1px solid black;"/>
+  <img src="ScreenShots/list.jpg" alt="List view" width="300" style="border: 1px solid black;"/>
 </div>
 
 ###### Search products based on title/brand name
-<img src="ScreenShots/search.jpg" alt="Pdt Detail Screen" width="300"/>
+<img src="ScreenShots/search.jpg" alt="Search Screen" width="300"/>
 
 ##### Product Detail
 <img src="ScreenShots/Pdt Detail.jpg" alt="Pdt Detail Screen" width="300"/>
 
 ##### Profile Screen & Edit Screen
 <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-  <img src="ScreenShots/profile.jpg" alt="Based on Category" width="300" style="border: 1px solid black;"/>
-  <img src="ScreenShots/edit.jpg" alt="Based on Category" width="300" style="border: 1px solid black;"/>
+  <img src="ScreenShots/profile.jpg" alt="Profile" width="300" style="border: 1px solid black;"/>
+  <img src="ScreenShots/edit.jpg" alt="Edit profile" width="300" style="border: 1px solid black;"/>
 </div>
 
 ##### Edited Profile Screen
-<img src="ScreenShots/edited.jpg" alt="Cart Detail Screen" width="300"/>
+<img src="ScreenShots/edited.jpg" alt="Edited profile Screen" width="300"/>
 
 ##### Cart Detail
 <img src="ScreenShots/Cart.jpg" alt="Cart Detail Screen" width="300"/>
