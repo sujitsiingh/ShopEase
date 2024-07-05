@@ -10,6 +10,8 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import UserProfileCard from '../../components/UserProfileCard/UserProfileCard';
 import { Ionicons } from '@expo/vector-icons';
 import OptionList from '../../components/OptionList/OptionList';
+import { ProfileContext } from '../../states/ProfileContext';
+import UserEditProfile from '../../components/UserEditProfile/UserEditProfile';
 import { Color } from '../../Utils/Color';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -18,7 +20,8 @@ import { UserType } from '../../states/UserContext';
 
 const UserProfileScreen = ({ navigation }) => {
   const { userId, setUserId } = useContext(UserType);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('');
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -26,6 +29,7 @@ const UserProfileScreen = ({ navigation }) => {
           `http://192.168.12.223:8081/profile/${userId}`
         );
         const { user } = response.data;
+        // user.id = user.id.toString();
         setUser(user);
       } catch (error) {
         console.log("error", error);
@@ -45,6 +49,65 @@ const UserProfileScreen = ({ navigation }) => {
     navigation.replace("login");
   };
 
+  const [isEditing, setIsEditing] = useState(false);
+
+  const saveChanges = (updatedUser) => {
+    setUser(updatedUser);
+    setIsEditing(false);
+  };
+  // const saveChanges = () => {
+  //   // setProfile({ ...profile, name, email });
+  //   // setUser({ ...user, name, email });
+  //   setIsEditing(false);
+  // };
+  const dismissEditForm = () => {
+    setIsEditing(false);
+  };
+
+  const renderContent = () => {
+    if (isEditing) {
+      return (
+        <UserEditProfile onSave={saveChanges} visible={isEditing} navigation={navigation} onDismiss={dismissEditForm} />
+      );
+    } else {
+      return (
+        <View style={styles.UserProfileCardContianer}>
+          {/* <UserProfileCard
+            Icon={Ionicons}
+            name={user?.name}
+            email={user?.email}
+          /> */}
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Welcome {user?.name}
+            {/* Welcome {profile?.name} */}
+          </Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {user?.email}
+            {/* Email: {profile?.email} */}
+          </Text>
+        </View>
+      );
+    }
+  };
+
+  
+  const renderEditButton = () => {
+    if (!isEditing) {
+      return (
+        // <TouchableOpacity onPress={() => setIsEditing(true)}>
+        //   <Ionicons name="pencil" size={24} color={Color.primary} />
+        // </TouchableOpacity>
+        <OptionList
+          text={'Edit Profile'}
+          Icon={Ionicons}
+          iconName={'pencil'}
+          onPress={() => setIsEditing(true)}
+          // onPressSecondary={() => navigation.navigate('edit')}
+        />
+      );
+    }
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -57,11 +120,16 @@ const UserProfileScreen = ({ navigation }) => {
           <Text style={styles.screenNameText}>Profile</Text>
         </View>
         <View style={styles.UserProfileCardContianer}>
-          <UserProfileCard
+          {/* <UserProfileCard
             Icon={Ionicons}
             name={user?.name}
             email={user?.email}
           />
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Welcome Smith
+          </Text> */}
+          {renderContent()}
+          {renderEditButton()}
         </View>
         <View style={styles.OptionsContainer}>
           <OptionList
@@ -89,7 +157,7 @@ const UserProfileScreen = ({ navigation }) => {
           text={"Help Center"}
           Icon={Ionicons}
           iconName={"help-circle"}
-          onPress={() => console.log("working....")}
+            onPress={() => navigation.navigate('helpcenter')}
         />
           
           <OptionList
@@ -126,7 +194,7 @@ const styles = StyleSheet.create({
   },
   UserProfileCardContianer: {
     width: '100%',
-    height: '25%',
+    // height: '25%',
   },
   screenNameContainer: {
     marginTop: 10,
@@ -145,5 +213,6 @@ const styles = StyleSheet.create({
   },
   OptionsContainer: {
     width: '100%',
+    marginTop: 25,
   },
 });
